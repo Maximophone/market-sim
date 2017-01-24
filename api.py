@@ -50,7 +50,6 @@ def main(assets):
     @errorhandler
     def close_account(account_id):
         amount,assets = ex.close_account(account_id)
-
         return jsonify({"amount":amount,"assets":assets})
 
     @app.route('/api/v1/accounts/<int:account_id>/credit',methods=['POST'])
@@ -59,7 +58,7 @@ def main(assets):
         data = json.loads(request.data)
         amount = data["amount"]
         ex.credit_account(account_id,amount)
-        return make_response()
+        return make_response(jsonify({}))
 
     @app.route('/api/v1/accounts/<int:account_id>/add_asset',methods=['POST'])
     @errorhandler
@@ -68,7 +67,7 @@ def main(assets):
         asset = data["asset"]
         quantity = data["quantity"]
         ex.add_asset(account_id,asset,quantity)
-        return make_response()
+        return make_response(jsonify({}))
 
     @app.route('/api/v1/accounts/<int:account_id>/post_order',methods=['POST'])
     @errorhandler
@@ -79,7 +78,7 @@ def main(assets):
         price = data["price"]
         volume = data["volume"]
         success = ex.post_order(account_id,asset,side,price,volume)
-        return make_response()
+        return make_response(jsonify({}))
 
     @app.route('/api/v1/accounts/<int:account_id>/take_order',methods=['POST'])
     @errorhandler
@@ -90,7 +89,7 @@ def main(assets):
         price = data["price"]
         volume = data["volume"]
         success = ex.take_order(account_id,asset,side,price,volume)
-        return make_response()
+        return make_response(jsonify({}))
 
     @app.route('/api/v1/books/<string:asset>',methods=['GET'])
     @errorhandler
